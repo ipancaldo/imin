@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="col-10">
+        <div class="row">
+            <h2 class="pt-3 col-5">Who are you?</h2>
+            <div class="center">
+                <button type="button" class="btn btn-info float-right ">I'm new!</button>
+            </div>
+        </div>
+    </div>
+    <ul *ngFor="let user of users" class="list-group col-6">
+        <li class="list-group-item list-group-item-action" (click)="fillSelectedUserId(user.id)">{{user.userName}}
+        </li>
+    </ul>
+
+    <h2 class="pt-4">Are you in?</h2>
+    <button type="button" class="btn btn-success mr-3">I'm in!</button>
+    <button type="button" class="btn btn-danger ">Not this time</button>
+</div>

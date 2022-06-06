@@ -1,0 +1,21 @@
+<h1>Hoppers in! {{userGoingCounter}}</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">I'm in!</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.assistantNumber}}</td>
+            <td>{{user.userName}}</td>
+            <td *ngIf="user.goingToGo"><i class="fa-solid fa-check"></i></td>
+            <td *ngIf="user.goingToGo == false"><i class="fa-solid fa-xmark"></i></td>
+        </tr>
+        <div class="">
+            <button type="button" class="btn btn-outline-primary float-right">Back</button>
+        </div>
+    </tbody>
+</table>
