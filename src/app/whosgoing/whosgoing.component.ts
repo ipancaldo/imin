@@ -1,13 +1,13 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IUser } from '../interfaces/user';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  selector: 'app-whosgoing',
+  templateUrl: './whosgoing.component.html',
+  styleUrls: ['./whosgoing.component.css'],
 })
-export class UsersComponent implements OnInit {
+export class WhosgoingComponent implements OnInit {
   constructor(private userService: UserService) {}
   goingToGo: boolean;
   userGoingCounter: number;

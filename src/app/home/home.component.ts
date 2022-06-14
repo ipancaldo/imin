@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from '../interfaces/user';
 import { UserService } from '../services/user.service';
 
@@ -8,7 +9,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
   selectedUserId: number;
   users: IUser[];
   errorMessage: string;
@@ -16,6 +17,18 @@ export class HomeComponent implements OnInit {
   fillSelectedUserId(id: number) {
     this.selectedUserId = id;
     console.log(this.selectedUserId);
+  }
+
+  createNewUser() {
+    this.router.navigateByUrl('/signup');
+  }
+
+  imIn(id: number): void {
+    if (id == null) {
+      console.log("Error: id coulnd't be null");
+    } else {
+      this.router.navigate(['/whosgoing']);
+    }
   }
 
   ngOnInit(): void {
