@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { WhosgoingComponent } from './whosgoing/whosgoing.component';
 import { SignupComponent } from './signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     NgbModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },

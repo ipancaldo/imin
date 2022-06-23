@@ -1,4 +1,8 @@
-<h1>Hoppers in! {{userGoingCounter}}</h1>
+<h1 *ngIf="userGoingCounter != 0; else noOneItsIn">Hoppers in! {{userGoingCounter}}</h1>
+
+<ng-template #noOneItsIn>
+    <h2>No one it's in for the moment.</h2>
+</ng-template>
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -8,14 +12,25 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of users2; let i = index">
+            <td *ngIf="user.goingToGo">{{i+1}}</td>
+            <td *ngIf="user.goingToGo == false">-</td>
+            <td>{{user.surname}}, {{user.name}}</td>
+            <td *ngIf="user.goingToGo"><i class="fa-solid fa-check"></i></td>
+            <td *ngIf="user.goingToGo == false"><i class="fa-solid fa-xmark"></i></td>
+        </tr>
+        <!-- <tr *ngFor="let user of users">
             <td>{{user.assistantNumber}}</td>
             <td>{{user.userName}}</td>
             <td *ngIf="user.goingToGo"><i class="fa-solid fa-check"></i></td>
             <td *ngIf="user.goingToGo == false"><i class="fa-solid fa-xmark"></i></td>
-        </tr>
+        </tr> -->
         <div class="">
-            <button type="button" class="btn btn-outline-primary float-right">Back</button>
+            <button type="button" class="btn btn-outline-primary float-right" (click)="backButton()">Back</button>
         </div>
     </tbody>
 </table>
+
+<ng-template #noOneItsIn>
+    <p>No one it's in.</p>
+</ng-template>
