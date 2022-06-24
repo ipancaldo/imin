@@ -6,10 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { IUser } from '../interfaces/user';
-import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
-import { User } from '../classes/user';
+import { DataService } from 'src/app/services/data.service';
+import { User } from 'src/app/classes/user';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -19,8 +20,8 @@ import { User } from '../classes/user';
 export class SignupComponent implements OnInit {
   constructor(
     private dataService: DataService,
-    private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar // private alert: AlertComponent
   ) {}
 
   form = new FormGroup({
@@ -75,9 +76,13 @@ export class SignupComponent implements OnInit {
   });
 
   submitNewUser(form): void {
-    if (!this.comparePasswords()) return alert("The passwords aren't the same");
+    if (!this.comparePasswords())
+      return this.openSnackBar("The passwords aren't the same", 'Ok');
     if (!this.form.valid) {
-      alert('The form is not correct. Please check the hints');
+      return this.openSnackBar(
+        'The form is not correct. Please check the hints',
+        'Ok'
+      );
     } else {
       let user = new User(
         form.name,
@@ -102,9 +107,9 @@ export class SignupComponent implements OnInit {
     return v == ''
       ? ''
       : v.length < 2
-      ? 'Too short.'
+      ? 'Too short'
       : v.length > 20
-      ? 'Too long.'
+      ? 'Too long'
       : '';
   }
 
@@ -112,5 +117,12 @@ export class SignupComponent implements OnInit {
     let password1 = this.form.get('password').value;
     let password2 = this.form.get('repeatedPassword').value;
     return password1 == password2;
+  }
+
+  openSnackBar(message, action) {
+    let snackBarRef = this.snackBar.open(message, action);
+
+    snackBarRef.afterDismissed().subscribe(() => {});
+    snackBarRef.onAction().subscribe(() => {});
   }
 }

@@ -4,11 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HomeComponent } from './home/home.component';
-import { RouterModule } from '@angular/router';
-import { WhosgoingComponent } from './whosgoing/whosgoing.component';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './views/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { WhosgoingComponent } from './views/whosgoing/whosgoing.component';
+import { HomeComponent } from './views/home/home.component';
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,16 +22,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     NgbModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'whosgoing', component: WhosgoingComponent },
-      { path: 'signup', component: SignupComponent },
-    ]),
+    SharedModule,
+
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

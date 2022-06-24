@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './views/home/home.component';
+import { WhosgoingComponent } from './views/whosgoing/whosgoing.component';
+import { SignupComponent } from './views/signup/signup.component';
+
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'whosgoing', component: WhosgoingComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: '**', redirectTo: '' },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}

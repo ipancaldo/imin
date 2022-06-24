@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../classes/user';
-import { IUser } from '../interfaces/user';
-import { UserService } from '../services/user.service';
+import { User } from 'src/app/classes/user';
+import { IUser } from 'src/app/interfaces/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-whosgoing',
