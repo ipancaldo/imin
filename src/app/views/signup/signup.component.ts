@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { User } from 'src/app/classes/user';
-import { AlertComponent } from 'src/app/shared/alert/alert.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertService } from 'src/app/services/alert.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -20,8 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SignupComponent implements OnInit {
   constructor(
     private dataService: DataService,
+    private userService: UserService,
     private router: Router,
-    private snackBar: MatSnackBar // private alert: AlertComponent
+    private alert: AlertService
   ) {}
 
   form = new FormGroup({
@@ -77,22 +72,27 @@ export class SignupComponent implements OnInit {
 
   submitNewUser(form): void {
     if (!this.comparePasswords())
-      return this.openSnackBar("The passwords aren't the same", 'Ok');
-    if (!this.form.valid) {
-      return this.openSnackBar(
+      return this.alert.openSnackBar("The passwords aren't the same", 'Ok');
+    if (!this.form.valid)
+      return this.alert.openSnackBar(
         'The form is not correct. Please check the hints',
         'Ok'
       );
-    } else {
-      let user = new User(
-        form.name,
-        form.surname,
-        form.username,
-        form.email,
-        form.password
+
+    let user = new User(
+      form.name,
+      form.surname,
+      form.username,
+      form.email,
+      form.password
+    );
+    if (this.userService.checkIfUserExists(user))
+      return this.alert.openSnackBar(
+        'Username or Email already registered.',
+        'Ok'
       );
-      this.dataService.saveUser(user);
-    }
+
+    this.dataService.saveUser(user);
   }
 
   backButton(): void {
@@ -117,12 +117,5 @@ export class SignupComponent implements OnInit {
     let password1 = this.form.get('password').value;
     let password2 = this.form.get('repeatedPassword').value;
     return password1 == password2;
-  }
-
-  openSnackBar(message, action) {
-    let snackBarRef = this.snackBar.open(message, action);
-
-    snackBarRef.afterDismissed().subscribe(() => {});
-    snackBarRef.onAction().subscribe(() => {});
   }
 }

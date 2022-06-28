@@ -6,10 +6,17 @@
         </div>
     </div>
 </div>
+<div class="col-6">
+    <mat-progress-spinner [mode]="'indeterminate'" *ngIf="loading$ | async"></mat-progress-spinner>
+</div>
 <ul *ngFor="let user of users" class="list-group col-6">
-    <li class="list-group-item list-group-item-action" (click)="fillSelectedUserId(user.id)">{{user.userName}}
+    <li class="list-group-item list-group-item-action" (click)="fillSelectedUserId(user.id)">{{user.name}},
+        {{user.surname}}
     </li>
 </ul>
+
+<mat-toolbar></mat-toolbar>
+
 
 <h2 class="pt-4">Are you in?</h2>
 <button type="button" class="btn btn-success mr-3" (click)="imIn(this.selectedUserId)">I'm in!</button>

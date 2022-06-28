@@ -12,19 +12,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users2; let i = index">
-            <td *ngIf="user.goingToGo">{{i+1}}</td>
-            <td *ngIf="user.goingToGo == false">-</td>
+        <mat-progress-spinner [mode]="'indeterminate'" *ngIf="loading$ | async"></mat-progress-spinner>
+        <tr *ngFor="let user of users; let i = index">
+            <td>{{i+1}}</td>
+            <!-- <td *ngIf="user.goingToGo">{{i+1}}</td>
+            <td *ngIf="user.goingToGo == false">-</td> -->
             <td>{{user.surname}}, {{user.name}}</td>
-            <td *ngIf="user.goingToGo"><i class="fa-solid fa-check"></i></td>
-            <td *ngIf="user.goingToGo == false"><i class="fa-solid fa-xmark"></i></td>
+            <!-- <td *ngIf="user.goingToGo"><i class="fa-solid fa-check"></i></td>
+            <td *ngIf="user.goingToGo == false"><i class="fa-solid fa-xmark"></i></td> -->
+            <td><i class="fa-solid fa-check"></i></td>
         </tr>
-        <!-- <tr *ngFor="let user of users">
-            <td>{{user.assistantNumber}}</td>
-            <td>{{user.userName}}</td>
-            <td *ngIf="user.goingToGo"><i class="fa-solid fa-check"></i></td>
-            <td *ngIf="user.goingToGo == false"><i class="fa-solid fa-xmark"></i></td>
-        </tr> -->
         <div class="">
             <button type="button" class="btn btn-outline-primary float-right" (click)="backButton()">Back</button>
         </div>

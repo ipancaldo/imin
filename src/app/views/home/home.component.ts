@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUser } from '../../interfaces/user';
+import { User } from 'src/app/classes/user';
+import { AlertService } from 'src/app/services/alert.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -9,10 +11,16 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private _userService: UserService,
+    private _router: Router,
+    private _alert: AlertService,
+    private _loader: LoadingService
+  ) {}
   selectedUserId: number;
-  users: IUser[];
+  users: User[] = [];
   errorMessage: string;
+  loading$ = this._loader.loading$;
 
   fillSelectedUserId(id: number) {
     this.selectedUserId = id;
@@ -20,21 +28,20 @@ export class HomeComponent implements OnInit {
   }
 
   createNewUser() {
-    this.router.navigateByUrl('/signup');
+    this._router.navigateByUrl('/signup');
   }
 
   imIn(id: number): void {
-    if (id == null) {
-      console.log("Error: id coulnd't be null");
-    } else {
-      this.router.navigate(['/whosgoing']);
-    }
+    // if (id == null) {
+    //   this._alert.openSnackBar('An user must be selected', 'Ok');
+    // } else {
+    this._router.navigate(['/whosgoing']);
+    // }
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe({
-      next: (users) => (this.users = users),
-      error: (err) => (this.errorMessage = err),
+    this._userService.getAllUsers().subscribe((user) => {
+      this.users = Object.values(user);
     });
   }
 }

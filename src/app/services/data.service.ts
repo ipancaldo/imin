@@ -11,17 +11,13 @@ export class DataService {
 
   user: IUser;
   getAllUsers() {
-    let header = new HttpHeaders().set('Type-content', 'application/json)');
-    return this.httpClient.get(environment.users).subscribe((user: any) => {
-      this.user = user;
-    });
+    // let header = new HttpHeaders().set('Type-content', 'application/json)');
+    return this.httpClient.get(environment.users);
   }
   saveUser(user: IUser) {
-    this.httpClient
-      .post('https://imin-fdb21-default-rtdb.firebaseio.com/data.json', user)
-      .subscribe(
-        (response) => console.log('User saved ' + response),
-        (err) => console.log('Error: ', err)
-      );
+    this.httpClient.post(environment.users, user).subscribe(
+      (response) => console.log('User saved ' + response),
+      (err) => console.log('Error: ', err)
+    );
   }
 }
