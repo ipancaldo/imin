@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/ipancaldo/1dd3520d-690d-4cb9-a446-da59c4c3a3b9/ccf4fdba-9613-42cc-a1ba-6d0a7c6e6b69/_apis/work/boardbadge/96fe5594-de31-476a-9ee1-c7dc8cb10aa0)](https://dev.azure.com/ipancaldo/1dd3520d-690d-4cb9-a446-da59c4c3a3b9/_boards/board/t/ccf4fdba-9613-42cc-a1ba-6d0a7c6e6b69/Microsoft.RequirementCategory)
 # IminApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.5.
