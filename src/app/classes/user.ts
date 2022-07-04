@@ -15,6 +15,7 @@ export class User {
     this.password = password;
     this.goingToGo = goingToGo;
     this.assistantNumber = assisntantNumber;
+    this.id = new Date().getTime();
   }
 
   id: number;

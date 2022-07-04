@@ -14,31 +14,55 @@ export class UserService {
   constructor(private http: HttpClient, private dataService: DataService) {}
 
   users: User[] = [];
+  use;
   user: User;
+  errorMessage;
+
   getAllUsers() {
     return this.dataService.getAllUsers();
   }
 
-  checkIfUserExists(user: User): boolean {
+  async userExists(user: User) {
     this.user = user;
-    this.dataService.getAllUsers().subscribe((u) => {
+
+    this.getAllUsers().subscribe((u) => {
       this.users = Object.values(u);
+      console.log('Console log 1: ', u);
     });
+    // this.getAllUsers().subscribe({
+    //   next: (u) => (this.users = Object.values(u)),
+    //   error: (err) => (this.errorMessage = err),
+    // });
+    // this.users = await this.getAllUsers().toPromise();
+    // this.use = this.users;
+    // this.dataService
+    //   .getAllUsers()
+    //   .pipe(tap((u) => (this.users = Object.values(u))))
+    //   .subscribe((d) => console.log(d));
+
+    console.log('Console log 2: usernameExists: ', this.usernameExists());
+    // console.log(this.emailExists());
+
     // Ver que al parecer es como que sigue el código y no se para a hacer el find
-    if (this.checkIfUsernameExist() || this.checkIfEmailExist) return true;
+    if (this.usernameExists()) return true;
+    // if (this.usernameExists() || this.emailExists()) return true;
     return false;
   }
 
-  private checkIfEmailExist(): boolean {
-    var userFound = this.users?.find((e) => e.email === this.user.email);
-    console.log('Userfound:', userFound.email);
-    console.log('Previous user:', this.user.email);
-    if (userFound == null) return false;
-    return true;
-  }
+  // private emailExists(): boolean {
+  //   var userFound = this.users?.find((e) => e.email === this.user.email);
+  //   console.log('Userfound:', userFound.email);
+  //   console.log('Previous user:', this.user.email);
+  //   if (userFound == null) return false;
+  //   return true;
+  // }
 
-  private checkIfUsernameExist(): boolean {
-    var userFound = this.users?.find((e) => e.username === this.user.username);
+  private usernameExists(): boolean {
+    console.log('Console log 3: ', this.user.username);
+    var userFound = Array.from(this.users).find(
+      (e) => e.username === this.user.username
+    );
+    console.log('Console log 4: ', { userFound });
     if (userFound == null) return false;
     return true;
   }

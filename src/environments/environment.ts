@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  users: 'https://imin-fdb21-default-rtdb.firebaseio.com/data.json',
+  users: 'https://imin-fdb21-default-rtdb.firebaseio.com/users.json',
 };
 
 /*

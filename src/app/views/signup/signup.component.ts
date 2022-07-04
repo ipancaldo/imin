@@ -71,7 +71,7 @@ export class SignupComponent implements OnInit {
   });
 
   submitNewUser(form): void {
-    if (!this.comparePasswords())
+    if (!this.isSamePassword())
       return this.alert.openSnackBar("The passwords aren't the same", 'Ok');
     if (!this.form.valid)
       return this.alert.openSnackBar(
@@ -86,13 +86,17 @@ export class SignupComponent implements OnInit {
       form.email,
       form.password
     );
-    if (this.userService.checkIfUserExists(user))
+
+    if (this.userService.userExists(user))
       return this.alert.openSnackBar(
         'Username or Email already registered.',
         'Ok'
       );
 
     this.dataService.saveUser(user);
+
+    this.alert.openSnackBar(`User ${user.username} created successfully`, 'Ok');
+    // this.router.navigateByUrl('/home');
   }
 
   backButton(): void {
@@ -108,12 +112,12 @@ export class SignupComponent implements OnInit {
       ? ''
       : v.length < 2
       ? 'Too short'
-      : v.length > 20
+      : v.length > 40
       ? 'Too long'
       : '';
   }
 
-  comparePasswords(): boolean {
+  isSamePassword(): boolean {
     let password1 = this.form.get('password').value;
     let password2 = this.form.get('repeatedPassword').value;
     return password1 == password2;
