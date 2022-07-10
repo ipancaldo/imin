@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, find, tap } from 'rxjs/operators';
+import { catchError, find, map, tap } from 'rxjs/operators';
 import { User } from '../classes/user';
 import { IUser } from '../interfaces/user';
 import { DataService } from './data.service';
@@ -14,7 +14,6 @@ export class UserService {
   constructor(private http: HttpClient, private dataService: DataService) {}
 
   users: User[] = [];
-  use;
   user: User;
   errorMessage;
 
@@ -22,50 +21,47 @@ export class UserService {
     return this.dataService.getAllUsers();
   }
 
-  async userExists(user: User) {
+  async doUserExist(user: User) {
     this.user = user;
 
     this.getAllUsers().subscribe((u) => {
       this.users = Object.values(u);
-      console.log('Console log 1: ', u);
     });
-    // this.getAllUsers().subscribe({
-    //   next: (u) => (this.users = Object.values(u)),
-    //   error: (err) => (this.errorMessage = err),
-    // });
-    // this.users = await this.getAllUsers().toPromise();
-    // this.use = this.users;
-    // this.dataService
-    //   .getAllUsers()
-    //   .pipe(tap((u) => (this.users = Object.values(u))))
-    //   .subscribe((d) => console.log(d));
 
-    console.log('Console log 2: usernameExists: ', this.usernameExists());
-    // console.log(this.emailExists());
-
-    // Ver que al parecer es como que sigue el código y no se para a hacer el find
-    if (this.usernameExists()) return true;
-    // if (this.usernameExists() || this.emailExists()) return true;
-    return false;
+    function delay(ms: number) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+    await delay(1000);
+    return this.doUsernameExists() || this.doEmailExists();
   }
 
-  // private emailExists(): boolean {
-  //   var userFound = this.users?.find((e) => e.email === this.user.email);
-  //   console.log('Userfound:', userFound.email);
-  //   console.log('Previous user:', this.user.email);
-  //   if (userFound == null) return false;
-  //   return true;
-  // }
-
-  private usernameExists(): boolean {
-    console.log('Console log 3: ', this.user.username);
+  private doUsernameExists(): boolean {
     var userFound = Array.from(this.users).find(
       (e) => e.username === this.user.username
     );
-    console.log('Console log 4: ', { userFound });
     if (userFound == null) return false;
     return true;
   }
+
+  private doEmailExists(): boolean {
+    var userFound = Array.from(this.users).find(
+      (e) => e.email === this.user.email
+    );
+    if (userFound == null) return false;
+    return true;
+  }
+
+  //In theory, this is the way to check it without the delay
+  // public doUserExist(user: User): Observable<boolean> {
+  //   this.getAllUsers().pipe(
+  //     map((u) => {
+  //       return u.some((us) => us.username === user.username);
+  //     })
+  //   );
+
+  //   console.log('Test doUserExist');
+  //   return;
+  // }
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';

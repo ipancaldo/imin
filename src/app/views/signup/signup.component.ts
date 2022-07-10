@@ -69,8 +69,9 @@ export class SignupComponent implements OnInit {
       ])
     ),
   });
+  doUserExist: boolean;
 
-  submitNewUser(form): void {
+  async submitNewUser(form) {
     if (!this.isSamePassword())
       return this.alert.openSnackBar("The passwords aren't the same", 'Ok');
     if (!this.form.valid)
@@ -87,16 +88,24 @@ export class SignupComponent implements OnInit {
       form.password
     );
 
-    if (this.userService.userExists(user))
+    function delay(ms: number) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    this.doUserExist = await this.userService.doUserExist(user);
+    await delay(2000);
+
+    if (this.doUserExist) {
       return this.alert.openSnackBar(
         'Username or Email already registered.',
         'Ok'
       );
+    }
 
     this.dataService.saveUser(user);
-
     this.alert.openSnackBar(`User ${user.username} created successfully`, 'Ok');
-    // this.router.navigateByUrl('/home');
+    await delay(500);
+    this.router.navigateByUrl('/home');
   }
 
   backButton(): void {
