@@ -11,7 +11,6 @@ export class DataService {
   constructor(private httpClient: HttpClient) {}
 
   getAllUsers(): Observable<User[]> {
-    // let header = new HttpHeaders().set('Type-content', 'application/json)');
     return this.httpClient.get<User[]>(environment.users);
   }
 

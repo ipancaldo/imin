@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     console.log(this.selectedUserId);
   }
 
-  createNewUser() {
+  createNewUser(): void {
     this._router.navigateByUrl('/signup');
   }
 
@@ -37,6 +37,10 @@ export class HomeComponent implements OnInit {
     // } else {
     this._router.navigate(['/whosgoing']);
     // }
+  }
+
+  logIn(): void {
+    this._router.navigateByUrl('/login');
   }
 
   ngOnInit(): void {

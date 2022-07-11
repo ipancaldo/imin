@@ -48,7 +48,7 @@ export class SignupComponent implements OnInit {
       '',
       Validators.compose([
         Validators.minLength(2),
-        Validators.maxLength(20),
+        Validators.maxLength(50),
         Validators.required,
       ])
     ),
@@ -115,7 +115,17 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   //Validations
-  validator(val: string): string {
+  validateNameSurnameUsername(val: string): string {
+    let v: string = this.form.get(val).value;
+    return v == ''
+      ? ''
+      : v.length < 2
+      ? 'Too short'
+      : v.length > 20
+      ? 'Too long'
+      : '';
+  }
+  validatePasswordEmail(val: string): string {
     let v: string = this.form.get(val).value;
     return v == ''
       ? ''

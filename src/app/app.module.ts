@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NetworkInterceptor } from './interceptors/network.interceptor';
+import { LoginComponent } from './views/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NetworkInterceptor } from './interceptors/network.interceptor';
     HomeComponent,
     WhosgoingComponent,
     SignupComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

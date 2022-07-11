@@ -2,6 +2,7 @@
     <div class="row">
         <h2 class="pt-3 col-5">Who are you?</h2>
         <div class="center">
+            <button type="button" class="btn btn-success float-right ml-3" (click)="logIn()">Log in</button>
             <button type="button" class="btn btn-info float-right" (click)="createNewUser()">I'm new!</button>
         </div>
     </div>
@@ -10,8 +11,7 @@
     <mat-progress-spinner [mode]="'indeterminate'" *ngIf="loading$ | async"></mat-progress-spinner>
 </div>
 <ul *ngFor="let user of users" class="list-group col-6">
-    <li class="list-group-item list-group-item-action" (click)="fillSelectedUserId(user.id)">{{user.name}},
-        {{user.surname}}
+    <li class="list-group-item list-group-item-action" (click)="fillSelectedUserId(user.id)">{{user.username}}
     </li>
 </ul>
 
