@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 import { User } from 'src/app/classes/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { UserService } from 'src/app/services/user.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-signup',
@@ -13,10 +14,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SignupComponent implements OnInit {
   constructor(
-    private dataService: DataService,
-    private userService: UserService,
-    private router: Router,
-    private alert: AlertService
+    private _dataService: DataService,
+    private _userService: UserService,
+    private _alert: AlertService,
+    private _dialogRef: MatDialog
   ) {}
 
   form = new FormGroup({
@@ -73,9 +74,9 @@ export class SignupComponent implements OnInit {
 
   async submitNewUser(form) {
     if (!this.isSamePassword())
-      return this.alert.openSnackBar("The passwords aren't the same", 'Ok');
+      return this._alert.openSnackBar("The passwords aren't the same", 'Ok');
     if (!this.form.valid)
-      return this.alert.openSnackBar(
+      return this._alert.openSnackBar(
         'The form is not correct. Please check the hints',
         'Ok'
       );
@@ -92,24 +93,27 @@ export class SignupComponent implements OnInit {
       return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    this.doUserExist = await this.userService.doUserExist(user);
+    this.doUserExist = await this._userService.doUserExist(user);
     await delay(2000);
 
     if (this.doUserExist) {
-      return this.alert.openSnackBar(
+      return this._alert.openSnackBar(
         'Username or Email already registered.',
         'Ok'
       );
     }
 
-    this.dataService.saveUser(user);
-    this.alert.openSnackBar(`User ${user.username} created successfully`, 'Ok');
+    this._dataService.saveUser(user);
+    this._alert.openSnackBar(
+      `User ${user.username} created successfully`,
+      'Ok'
+    );
     await delay(500);
-    this.router.navigateByUrl('/home');
+    this._dialogRef.closeAll();
   }
 
   backButton(): void {
-    this.router.navigateByUrl('/home');
+    this._dialogRef.closeAll();
   }
 
   ngOnInit(): void {}

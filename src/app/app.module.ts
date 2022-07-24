@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NetworkInterceptor } from './interceptors/network.interceptor';
 import { LoginComponent } from './views/login/login.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LoginComponent } from './views/login/login.component';
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
+    MatDialogModule,
   ],
   providers: [
     {

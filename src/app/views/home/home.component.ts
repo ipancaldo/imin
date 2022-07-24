@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { User } from 'src/app/classes/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { UserService } from '../../services/user.service';
+import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +18,8 @@ export class HomeComponent implements OnInit {
     private _userService: UserService,
     private _router: Router,
     private _alert: AlertService,
-    private _loader: LoadingService
+    private _loader: LoadingService,
+    private _dialogRef: MatDialog
   ) {}
   selectedUserId: number;
   users: User[] = [];
@@ -28,7 +32,7 @@ export class HomeComponent implements OnInit {
   }
 
   createNewUser(): void {
-    this._router.navigateByUrl('/signup');
+    this._dialogRef.open(SignupComponent);
   }
 
   imIn(id: number): void {
@@ -40,7 +44,7 @@ export class HomeComponent implements OnInit {
   }
 
   logIn(): void {
-    this._router.navigateByUrl('/login');
+    this._dialogRef.open(LoginComponent);
   }
 
   ngOnInit(): void {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private _dialogRef: MatDialog) {}
 
   form = new FormGroup({
     username: new FormControl(
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
   logIn(form: Form): void {}
 
   backButton(): void {
-    this.router.navigateByUrl('/home');
+    this._dialogRef.closeAll();
   }
 
   ngOnInit(): void {}
