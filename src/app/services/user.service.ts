@@ -15,6 +15,7 @@ export class UserService {
 
   users: User[] = [];
   user: User;
+  doUserExists: boolean;
   errorMessage;
 
   getAllUsers() {
@@ -24,14 +25,9 @@ export class UserService {
   async doUserExist(user: User) {
     this.user = user;
 
-    this.getAllUsers().subscribe((u) => {
-      this.users = Object.values(u);
-    });
+    this.getUsers();
 
-    function delay(ms: number) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-    await delay(1000);
+    await this.delay(1000);
     return this.doUsernameExists() || this.doEmailExists();
   }
 
@@ -49,6 +45,36 @@ export class UserService {
     );
     if (userFound == null) return false;
     return true;
+  }
+
+  async userLoging(username: string, password: string) {
+    this.user = new User(username, password);
+
+    this.getUsers();
+    await this.delay(500);
+
+    var userMatch = this.doUsernameAndPasswordMatch();
+    await this.delay(500);
+
+    if (userMatch == null) return 'User or password is invalid.';
+    return this.user.username;
+  }
+
+  private getUsers() {
+    this.getAllUsers().subscribe((u) => {
+      this.users = Object.values(u);
+    });
+  }
+
+  private doUsernameAndPasswordMatch() {
+    return Array.from(this.users).find(
+      (e) =>
+        e.username === this.user.username && e.password === this.user.password
+    );
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   //In theory, this is the way to check it without the delay

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private _dialogRef: MatDialog) {}
+  constructor(
+    private _router: Router,
+    private _dialogRef: MatDialog,
+    private _userService: UserService
+  ) {}
 
   form = new FormGroup({
     username: new FormControl(
@@ -30,13 +35,15 @@ export class LoginComponent implements OnInit {
     ),
   });
 
-  logIn(form: Form): void {}
-
-  backButton(): void {
-    this._dialogRef.closeAll();
+  async logIn(form: Form) {
+    var result = await this._userService.userLoging(
+      this.form.get('username').value,
+      this.form.get('password').value
+    );
+    console.log(result);
+    if (result != null) console.log(result);
+    else console.log("User doesn't exist");
   }
-
-  ngOnInit(): void {}
 
   validateUsername(val: string): string {
     let v: string = this.form.get(val).value;
@@ -59,4 +66,10 @@ export class LoginComponent implements OnInit {
       ? 'Too long'
       : '';
   }
+
+  backButton(): void {
+    this._dialogRef.closeAll();
+  }
+
+  ngOnInit(): void {}
 }

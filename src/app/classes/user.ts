@@ -1,10 +1,10 @@
 export class User {
   constructor(
-    name: string,
-    surname: string,
     username: string,
-    email: string,
     password: string,
+    email?: string,
+    name?: string,
+    surname?: string,
     goingToGo?: boolean,
     assisntantNumber?: number
   ) {

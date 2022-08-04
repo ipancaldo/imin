@@ -89,12 +89,8 @@ export class SignupComponent implements OnInit {
       form.password
     );
 
-    function delay(ms: number) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
     this.doUserExist = await this._userService.doUserExist(user);
-    await delay(2000);
+    await this.delay(2000);
 
     if (this.doUserExist) {
       return this._alert.openSnackBar(
@@ -108,12 +104,16 @@ export class SignupComponent implements OnInit {
       `User ${user.username} created successfully`,
       'Ok'
     );
-    await delay(500);
+    await this.delay(500);
     this._dialogRef.closeAll();
   }
 
   backButton(): void {
     this._dialogRef.closeAll();
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   ngOnInit(): void {}

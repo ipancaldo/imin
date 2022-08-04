@@ -47,6 +47,13 @@ export class HomeComponent implements OnInit {
     this._dialogRef.open(LoginComponent);
   }
 
+  // Usar algo asi para el login
+  test(): void {
+    var x = document.getElementById('loginUsername');
+    if (x.style.display === 'none') x.style.display = 'block';
+    else x.style.display = 'none';
+  }
+
   ngOnInit(): void {
     this._userService.getAllUsers().subscribe((user) => {
       this.users = Object.values(user);
