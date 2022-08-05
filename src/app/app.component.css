@@ -6,3 +6,8 @@
     bottom: 0;
     right: 0;
   }
+
+  #usernameWelcome{
+    font-weight: bold;
+    font-size: 15px;
+  }

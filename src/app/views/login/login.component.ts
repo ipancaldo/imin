@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { LogingService } from 'src/app/services/loging.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,9 +12,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private _router: Router,
     private _dialogRef: MatDialog,
-    private _userService: UserService
+    private _userService: UserService,
+    private _logingService: LogingService
   ) {}
 
   form = new FormGroup({
@@ -41,8 +42,15 @@ export class LoginComponent implements OnInit {
       this.form.get('password').value
     );
     console.log(result);
-    if (result != null) console.log(result);
-    else console.log("User doesn't exist");
+    if (result != null) {
+      this._logingService.sendUsernameToLogin(result);
+      this.form.reset();
+
+      console.log('Desde login component: ', result);
+
+      await this.delay(300);
+      this._dialogRef.closeAll();
+    } else console.log("User doesn't exist");
   }
 
   validateUsername(val: string): string {
@@ -69,6 +77,10 @@ export class LoginComponent implements OnInit {
 
   backButton(): void {
     this._dialogRef.closeAll();
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   ngOnInit(): void {}
