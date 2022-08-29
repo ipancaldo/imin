@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit {
           if (message != '') {
             document.getElementById('imNewButton').style.display = 'none';
             document.getElementById('logInButton').style.display = 'none';
+            document.getElementById('logOutButton').style.display = 'block';
 
             // var welcomeBack = document.getElementById('welcomeBack');
             welcomeBack.innerHTML = 'Welcome back, ';
@@ -78,7 +79,7 @@ export class HomeComponent implements OnInit {
       } else {
         document.getElementById('imNewButton').style.display = 'block';
         document.getElementById('logInButton').style.display = 'block';
-        document.getElementById('logOutButton').style.display = 'block';
+        document.getElementById('logOutButton').style.display = 'none';
 
         welcomeBack.innerHTML = '';
         usernameWelcome.innerHTML = '';

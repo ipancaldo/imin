@@ -14,7 +14,7 @@
             <span class="validator text-danger">{{validatePassword("password")}}</span>
         </div>
         <div class="col-md-5">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
             <button type="button" class="btn btn-outline-primary float-center ml-3" (click)="backButton()">Back</button>
         </div>
     </form>

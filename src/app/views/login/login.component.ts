@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 import { LogingService } from 'src/app/services/loging.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _dialogRef: MatDialog,
     private _userService: UserService,
-    private _logingService: LogingService
+    private _logingService: LogingService,
+    private _alert: AlertService
   ) {}
 
   form = new FormGroup({
@@ -41,16 +42,15 @@ export class LoginComponent implements OnInit {
       this.form.get('username').value,
       this.form.get('password').value
     );
-    console.log(result);
+    if (result == 'User or password is invalid.') {
+      this._alert.openSnackBar(result, 'Ok');
+      return;
+    }
     if (result != null) {
       this._logingService.sendUsernameToLogin(result);
-      this.form.reset();
-
-      console.log('Desde login component: ', result);
-
       await this.delay(300);
       this._dialogRef.closeAll();
-    } else console.log("User doesn't exist");
+    }
   }
 
   validateUsername(val: string): string {
