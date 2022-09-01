@@ -86,4 +86,12 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  refreshView(): void {
+    window.location.reload();
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 }

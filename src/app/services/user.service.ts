@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, find, map, tap } from 'rxjs/operators';
 import { User } from '../classes/user';
 import { IUser } from '../interfaces/user';
+import { CommonService } from './common.service';
 import { DataService } from './data.service';
 
 @Injectable({
@@ -11,7 +12,11 @@ import { DataService } from './data.service';
 })
 export class UserService {
   private _userUrl = 'api/users/users.json';
-  constructor(private http: HttpClient, private dataService: DataService) {}
+  constructor(
+    private http: HttpClient,
+    private dataService: DataService,
+    private _common: CommonService
+  ) {}
 
   users: User[] = [];
   user: User;
@@ -27,7 +32,7 @@ export class UserService {
 
     this.getUsers();
 
-    await this.delay(1000);
+    await this._common.delay(1000);
     return this.doUsernameExists() || this.doEmailExists();
   }
 
@@ -51,10 +56,10 @@ export class UserService {
     this.user = new User(username, password);
 
     this.getUsers();
-    await this.delay(500);
+    await this._common.delay(1000);
 
     var userMatch = this.doUsernameAndPasswordMatch();
-    await this.delay(500);
+    await this._common.delay(1000);
 
     if (userMatch == null) return 'User or password is invalid.';
     return this.user.username;
@@ -71,10 +76,6 @@ export class UserService {
       (e) =>
         e.username === this.user.username && e.password === this.user.password
     );
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   //In theory, this is the way to check it without the delay

@@ -5,10 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class AlertService {
-  constructor(private matSnackBar: MatSnackBar) {}
+  constructor(private _matSnackBar: MatSnackBar) {}
 
   openSnackBar(message, action) {
-    let snackBarRef = this.matSnackBar.open(message, action);
+    let snackBarRef = this._matSnackBar.open(message, action);
 
     snackBarRef.afterDismissed().subscribe(() => {});
     snackBarRef.onAction().subscribe(() => {});

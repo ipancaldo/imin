@@ -6,6 +6,7 @@ import { User } from 'src/app/classes/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,8 @@ export class SignupComponent implements OnInit {
     private _dataService: DataService,
     private _userService: UserService,
     private _alert: AlertService,
-    private _dialogRef: MatDialog
+    private _dialog: MatDialog,
+    private _common: CommonService
   ) {}
 
   form = new FormGroup({
@@ -90,7 +92,7 @@ export class SignupComponent implements OnInit {
     );
 
     this.doUserExist = await this._userService.doUserExist(user);
-    await this.delay(2000);
+    await this._common.delay(1000);
 
     if (this.doUserExist) {
       return this._alert.openSnackBar(
@@ -104,16 +106,12 @@ export class SignupComponent implements OnInit {
       `User ${user.username} created successfully`,
       'Ok'
     );
-    await this.delay(500);
-    this._dialogRef.closeAll();
+    await this._common.delay(500);
+    this._dialog.closeAll();
   }
 
   backButton(): void {
-    this._dialogRef.closeAll();
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    this._dialog.closeAll();
   }
 
   ngOnInit(): void {}

@@ -1,19 +1,19 @@
-<div class="col-10">
+<div class="col-12">
     <h2>Log in</h2>
     <form class="form-group row" [formGroup]="form" (ngSubmit)="logIn(form.value)">
-        <div class="form-group col-md-5">
+        <div class="form-group col-md-6">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" placeholder="ipunkaldo" class="form-control"
                 formControlName="username">
             <span class="validator text-danger">{{validateUsername("username")}}</span>
         </div>
-        <div class="form-group col-md-5">
+        <div class="form-group col-md-6">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="****" class="form-control"
                 formControlName="password">
             <span class="validator text-danger">{{validatePassword("password")}}</span>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
             <button type="button" class="btn btn-outline-primary float-center ml-3" (click)="backButton()">Back</button>
         </div>

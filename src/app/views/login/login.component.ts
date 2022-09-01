@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/app/services/alert.service';
+import { CommonService } from 'src/app/services/common.service';
 import { LogingService } from 'src/app/services/loging.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
     private _dialogRef: MatDialog,
     private _userService: UserService,
     private _logingService: LogingService,
-    private _alert: AlertService
+    private _alert: AlertService,
+    private _common: CommonService
   ) {}
 
   form = new FormGroup({
@@ -48,7 +50,7 @@ export class LoginComponent implements OnInit {
     }
     if (result != null) {
       this._logingService.sendUsernameToLogin(result);
-      await this.delay(300);
+      await this._common.delay(300);
       this._dialogRef.closeAll();
     }
   }
@@ -77,10 +79,6 @@ export class LoginComponent implements OnInit {
 
   backButton(): void {
     this._dialogRef.closeAll();
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   ngOnInit(): void {}
