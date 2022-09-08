@@ -12,14 +12,13 @@
     font-size: 15px;
   }
 
-  /* #imNewButton{
-    display: flexbox;
+  .btn {
+    font-size: 15px;
+    width:100%;
+    size: 80%;
   }
 
-  #logInButton{
-    display: flexbox;
+ .verticallyAlign{
+  margin: auto;
+  width: 50%;
   }
-
-  #logOutButton{
-    display;
-  } */
