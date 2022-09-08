@@ -2,18 +2,26 @@
   <nav class="navbar navbar-light bg-light">
     <div class="pl-3">
       <a class="navbar-brand" href="#">
-        <img [src]=basketballImage width="30" height="30" class="d-inline-block align-top" alt="Basketball ball">
-        I'm in!
+        <div class="verticallyAlign">
+          <img [src]=basketballImage width="30" height="30" class="d-inline-block align-top" alt="Basketball ball">
+          <label class="pl-2 mt-1">I'm in!</label>
+        </div>
       </a>
     </div>
 
     <div class="mr-2 pr-2">
-      <button class="btn btn-danger text-white badge-pill mr-2" id="logOutButton" (click)="logOut()" hidden>Log
-        out</button>
-      <div id="welcomeBack"></div><span id="usernameWelcome"></span>
-      <button class="btn btn-success text-white badge-pill mr-2" id="imNewButton" (click)="createNewUser()">I'm
-        new!</button>
-      <button class="btn btn-info text-white badge-pill mr-2" id="logInButton" (click)="logIn()">Log in</button>
+      <div class="row">
+        <div class="col verticallyAlign">
+          <button class="btn btn-danger text-white badge-pill mr-2" id="logOutButton" (click)="logOut()"
+            style="display: none">Log out</button>
+          <button class="btn btn-success text-white badge-pill mr-2" id="imNewButton" (click)="createNewUser()">I'm
+            new!</button>
+        </div>
+        <div class="col verticallyAlign">
+          <div id="welcomeBack"></div><span id="usernameWelcome"></span>
+          <button class="btn btn-info text-white badge-pill mr-2" id="logInButton" (click)="logIn()">Log in</button>
+        </div>
+      </div>
     </div>
   </nav>
 

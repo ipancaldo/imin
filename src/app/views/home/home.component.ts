@@ -33,10 +33,6 @@ export class HomeComponent implements OnInit {
     console.log(this.selectedUserId);
   }
 
-  // createNewUser(): void {
-  //   this._dialogRef.open(SignupComponent);
-  // }
-
   imIn(id: number): void {
     // if (id == null) {
     //   this._alert.openSnackBar('An user must be selected', 'Ok');
@@ -45,10 +41,6 @@ export class HomeComponent implements OnInit {
     // }
   }
 
-  // logIn(): void {
-  //   this._dialogRef.open(LoginComponent);
-  // }
-
   ngOnInit(): void {
     this._userService.getAllUsers().subscribe((user) => {
       this.users = Object.values(user);
@@ -56,7 +48,6 @@ export class HomeComponent implements OnInit {
 
     var welcomeBack = document.getElementById('welcomeBack');
     var usernameWelcome = document.getElementById('usernameWelcome');
-    var logOutButton = document.getElementById('logOutButton');
 
     this._logingService.logout$.subscribe((isLogedOut) => {
       if (isLogedOut == false) {
@@ -66,11 +57,8 @@ export class HomeComponent implements OnInit {
             document.getElementById('logInButton').style.display = 'none';
             document.getElementById('logOutButton').style.display = 'block';
 
-            // var welcomeBack = document.getElementById('welcomeBack');
             welcomeBack.innerHTML = 'Welcome back, ';
-            // var usernameWelcome = document.getElementById('usernameWelcome');
             usernameWelcome.innerHTML = `${message}!`;
-            logOutButton.removeAttribute('hidden');
 
             welcomeBack.style.display = 'block';
             usernameWelcome.style.display = 'block';
